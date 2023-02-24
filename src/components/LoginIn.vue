@@ -1,17 +1,31 @@
 <template>
   <h1>Login</h1>
-  <form>
+  <form @submit.prevent="Login">
     <label for="">Email</label><br>
-    <input type="email"><br>
+    <input type="email" v-model="email"><br>
     <label for="">Password</label><br>
-    <input type="password"><br><br>
+    <input type="password" v-model="password"><br><br>
     <input type="submit" value="Login">
   </form>
 </template>
 
 <script>
-export default {
+import { ref } from 'vue';
+import UserSignIn from '@/composition/UserSignIn.js';
 
+export default {
+  setup(props,context){
+    let email = ref("")
+    let password = ref("")
+    let {error,CheckUser} = UserSignIn
+    let Login = async() => {
+      let res = await UserSignIn(email.value,password.value)
+      if(res){
+        context.emit("Logged")
+      }
+    }
+    return {email,password,error,Login}
+  }
 }
 </script>
 

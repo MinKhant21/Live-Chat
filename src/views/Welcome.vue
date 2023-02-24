@@ -2,7 +2,7 @@
         <blockquote>
         <div class="wrapper">
           <div v-if="Stateswitch">
-            <LoginIn></LoginIn>
+            <LoginIn @Logged="Logged"></LoginIn>
             <p>
               You don't have an account ? 
               
@@ -31,13 +31,18 @@
 import { ref } from 'vue';
 import LoginIn from '../components/LoginIn'
 import SignIn from '../components/SignIn'
+import  {useRoute}  from 'vue-router'
 export default {
   components: {
     LoginIn, SignIn },
 
   setup(){
+    let router = useRoute();
     let Stateswitch = ref(true);
-    return {Stateswitch}
+    let Logged = () => {
+      router.push({name:"Chatroom"})
+    }
+    return {Stateswitch,Logged}
   }
 
 }
