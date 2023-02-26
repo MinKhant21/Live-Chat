@@ -31,16 +31,16 @@
 import { ref } from 'vue';
 import LoginIn from '../components/LoginIn'
 import SignIn from '../components/SignIn'
-import  {useRoute}  from 'vue-router'
+import  {useRouter}  from 'vue-router'
 export default {
   components: {
     LoginIn, SignIn },
 
   setup(){
-    let router = useRoute();
+    let router = useRouter();
     let Stateswitch = ref(true);
     let Logged = () => {
-      router.push({name:"Chatroom"})
+      router.push('/chatroom')
     }
     return {Stateswitch,Logged}
   }

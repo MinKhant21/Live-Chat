@@ -17,9 +17,9 @@ export default {
   setup(props,context){
     let email = ref("")
     let password = ref("")
-    let {error,CheckUser} = UserSignIn
+    let {error,CheckUser} = UserSignIn()
     let Login = async() => {
-      let res = await UserSignIn(email.value,password.value)
+      let res = await CheckUser(email.value,password.value)
       if(res){
         context.emit("Logged")
       }

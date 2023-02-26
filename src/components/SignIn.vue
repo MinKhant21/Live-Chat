@@ -5,7 +5,7 @@
   </div>
   <form @submit.prevent="CreateAcc">
     <label for="">Username</label><br>
-    <input type="text" v-model="username"><br>
+    <input type="text" v-model="displayName"><br>
     <label for="">Email</label><br>
     <input type="email" v-model="email"><br>
     <label for="">Password</label><br>
@@ -17,18 +17,22 @@
 <script>
 import { ref } from 'vue';
 import UserSignUp from '@/composition/UserSignUp';
+import { useRouter } from 'vue-router';
 export default {
     setup(){
+        let router = useRouter();
         let email = ref("")
-        let username = ref("")
+        let displayName = ref("")
         let password = ref("")
         let {error,CreateUser} = UserSignUp()
 
         let CreateAcc =async ()=>{
-            let res = await CreateUser(email.value,password.value)
-            
+            let res = await CreateUser(email.value,password.value,displayName.value)
+            if(res){
+              router.push('/chatroom')
+            }
         }
-        return {email,username,password,CreateAcc,error}
+        return {email,displayName,password,CreateAcc,error}
     }
 }
 </script>
